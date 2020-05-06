@@ -32,28 +32,206 @@
             data.results.forEach((item)=>{
                 if(item.countryName=="中国"){
                     var one={
-                    "name":item.provinceShortName,
-                    "value":[item.currentConfirmedCount,item.confirmedCount,item.suspectedCount,item.curedCount,item.deadCount]
+                    name:item.provinceShortName,
+                    value:[item.currentConfirmedCount,item.confirmedCount,item.suspectedCount,item.curedCount,item.deadCount]
                     };
                     temp.push(one);
                 }
             });
+            var overall=[];
+            $.get("./data/DXYOverall.json",function(tak){
+                console.log(tak);
+                console.log(tak["success"]);
+                tak.results.forEach((item)=>{
+                    overall.currentConfirmedCount=item.currentConfirmedCount;
+                    overall.currentConfirmedInc=item.currentConfirmedInc;
+                    overall.confirmedCount=item.confirmedCount;
+                    overall.confirmedInc=item.confirmedInc;
+                    overall.curedCount=item.curedCount;
+                    overall.curedInc=item.curedInc;
+                    overall.deadCount=item.deadCount;
+                    overall.deadInc=item.deadInc;
+                    overall.suspectedCount=item.suspectedCount;
+                    overall.suspectedInc=item.suspectedInc;
+            });
+                // var two={
+                //     currentConfirmedCount:item.currentConfirmedCount,
+                //     currentConfirmedInc:item.currentConfirmedInc,
+                //     confirmedCount:item.confirmedCount,
+                //     confirmedInc:item.confirmedInc,
+                //     curedCount:item.curedCount,
+                //     curedInc:item.curedInc,
+                //     deadCount:item.deadCount,
+                //     deadInc:item.deadInc,
+                //     suspectedCount:item.suspectedCount,
+                //     suspectedInc:item.suspectedInc
+                // }
+                
+            });
+            console.log(overall);
             var option =({
-            series: [{
-                type: 'map',
-                map: 'china',
-                data: temp,
-                //显示文本标签
-                label:{
+                title:[{
+                    backgroundColor:'green',
+                    text:'COVID-19疫情地图（中国）',
+                    left:'center'
+
+                }],
+                legend:[{
+                    left:'10%',
+                    top:'20%',
+                    orient:'vertical',
+                    align:'right',
+                    selectedMode:'single',
+                    inactiveColor:'#ccc',
+                    data:['当前确诊','当前疑似','总确诊','治愈','死亡']
+                }],
+                visualMap: [
+                    {
+                        type: 'piecewise',
+                        min: 0,
+                        max:100000,
+                        precision:0,
+                        hoverLink:true,
+                        dimension: 0,       // series.data 的第四个维度（即 value[3]）被映射
+                        seriesIndex:0,
+                        pieces: [
+                            { gte: 10000, color: '#b80909' },
+                            { gte: 1000, lt: 9999, color: '#e64546' },
+                            { gte: 100, lt: 999, color: '#f57567' },
+                            { gte: 10, lt: 99, color: '#ff9985' },
+                            { gte: 1, lt: 9, color: '#ffe5db' },
+                            { value: 0, color: '#fff' },
+                        ]
+                    },
+                    {
+                        type: 'piecewise',
+                        min: 0,
+                        max:100000,
+                        precision:0,
+                        hoverLink:true,
+                        dimension: 1,       // series.data 的第四个维度（即 value[3]）被映射
+                        seriesIndex:1,
+                        pieces: [
+                            { gte: 10000, color: '#b80909' },
+                            { gte: 1000, lt: 9999, color: '#e64546' },
+                            { gte: 100, lt: 999, color: '#f57567' },
+                            { gte: 10, lt: 99, color: '#ff9985' },
+                            { gte: 1, lt: 9, color: '#ffe5db' },
+                            { value: 0, color: '#fff' },
+                        ]
+                    },
+                    {
+                        type: 'piecewise',
+                        min: 0,
+                        max:100000,
+                        precision:0,
+                        hoverLink:true,
+                        dimension: 2,       // series.data 的第四个维度（即 value[3]）被映射
+                        seriesIndex:2,
+                        pieces: [
+                            { gte: 10000, color: '#b80909' },
+                            { gte: 1000, lt: 9999, color: '#e64546' },
+                            { gte: 100, lt: 999, color: '#f57567' },
+                            { gte: 10, lt: 99, color: '#ff9985' },
+                            { gte: 1, lt: 9, color: '#ffe5db' },
+                            { value: 0, color: '#fff' },
+                        ]
+                    },
+                    {
+                        type: 'piecewise',
+                        min: 0,
+                        max:100000,
+                        precision:0,
+                        hoverLink:true,
+                        dimension: 3,       // series.data 的第四个维度（即 value[3]）被映射
+                        seriesIndex:3,
+                        pieces: [
+                            { gte: 10000, color: '#b80909' },
+                            { gte: 1000, lt: 9999, color: '#e64546' },
+                            { gte: 100, lt: 999, color: '#f57567' },
+                            { gte: 10, lt: 99, color: '#ff9985' },
+                            { gte: 1, lt: 9, color: '#ffe5db' },
+                            { value: 0, color: '#fff' },
+                        ]
+                    },
+                    {
+                        type: 'piecewise',
+                        min: 0,
+                        max:100000,
+                        precision:0,
+                        hoverLink:true,
+                        dimension: 4,       // series.data 的第四个维度（即 value[3]）被映射
+                        seriesIndex:4,
+                        pieces: [
+                            { gte: 10000, color: '#b80909' },
+                            { gte: 1000, lt: 9999, color: '#e64546' },
+                            { gte: 100, lt: 999, color: '#f57567' },
+                            { gte: 10, lt: 99, color: '#ff9985' },
+                            { gte: 1, lt: 9, color: '#ffe5db' },
+                            { value: 0, color: '#fff' },
+                        ]
+                    }
+
+                ],
+            series: [
+                {
+                    name:'当前确诊',
+                    type: 'map',
+                    map: 'china',
+                    data: temp,
+                    //显示文本标签
+                    label:{
                     show:true
+                    }
+                },
+                {
+                    name:'当前疑似',
+                    type: 'map',
+                    map: 'china',
+                    data: temp,
+                    //显示文本标签
+                    label:{
+                    show:true
+                    }
+                },
+                {
+                    name:'总确诊',
+                    type: 'map',
+                    map: 'china',
+                    data: temp,
+                    //显示文本标签
+                    label:{
+                    show:true
+                    }
+                },
+                {
+                    name:'治愈',
+                    type: 'map',
+                    map: 'china',
+                    data: temp,
+                    //显示文本标签
+                    label:{
+                    show:true
+                    }
+                },
+                {
+                    name:'死亡',
+                    type: 'map',
+                    map: 'china',
+                    data: temp,
+                    //显示文本标签
+                    label:{
+                    show:true
+                    }
                 }
-            }],
+                
+            ],
             tooltip:{
                 formatter(res){
                     //console.log(res)//里面的data对应获取的数据
                     let { data, marker } = res;
                         return `
-                        {${data.name}}<br>
+                        ${data.name}<br>
                         当前确诊：${data.value[0]}<br>
                         当前疑似：${data.value[1]}<br>
                         总确诊：${data.value[2]}<br>
@@ -64,7 +242,7 @@
         });
         myChart.setOption(option);
     
-}, 'json')
+}, 'json');
        
     </script>
 
